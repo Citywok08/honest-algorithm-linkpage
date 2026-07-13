@@ -58,7 +58,7 @@ async function init() {
 
     const list = document.getElementById("product-list");
     try {
-        const res = await fetch("products.json");
+        const res = await fetch(`products.json?v=${Date.now()}`, { cache: "no-store" });
         const products = await res.json();
         list.innerHTML = "";
         if (!products.length) {
