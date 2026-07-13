@@ -35,6 +35,20 @@ function renderProduct(p, rank) {
             </a>
         </div>
     `;
+
+    // Swap to the placeholder icon if the image fails to load for any reason
+    // (dead link, blocked, transient CDN hiccup) instead of a broken-image icon.
+    const imgEl = card.querySelector(".card-media img");
+    if (imgEl) {
+        imgEl.addEventListener("error", () => {
+            const placeholder = document.createElement("div");
+            placeholder.className = "img-placeholder";
+            placeholder.setAttribute("aria-hidden", "true");
+            placeholder.textContent = "📦";
+            imgEl.replaceWith(placeholder);
+        }, { once: true });
+    }
+
     return card;
 }
 
